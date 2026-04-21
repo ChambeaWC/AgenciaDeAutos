@@ -24,7 +24,7 @@ $resumen = [ // Array asociativo con metricas
 	'cantidad_autos' => count($autos),
 	'cantidad_usuarios' => $totalUsuarios,
 	'valor_total' => $valorTotal,
-	'instancias_auto' => Auto::getContadorInstancias(),
+	'autos_premium' => Auto::contarAutosPremium($autos),
 ];
 
 require_once __DIR__ . '/../components/header.php';
@@ -52,8 +52,8 @@ require_once __DIR__ . '/../components/header.php';
 		<p class="metric"><?= htmlspecialchars(Auto::formatearPrecio($resumen['valor_total'])) ?></p>
 	</article>
 	<article class="card">
-		<h3>Instancias Auto</h3>
-		<p class="metric"><?= $resumen['instancias_auto'] ?></p>
+		<h3>Autos premium</h3>
+		<p class="metric"><?= $resumen['autos_premium'] ?></p>
 	</article>
 </section>
 

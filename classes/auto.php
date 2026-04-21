@@ -10,7 +10,7 @@ class Auto
 	private float $precio;
 	private ?string $imagen;
 
-	private static int $contadorInstancias = 0;
+	private static array $marcasPremium = ['Audi', 'BMW', 'Lexus', 'Mercedes-Benz', 'Porsche'];
 
 	public function __construct(int $id, string $marca, string $modelo, int $anio, float $precio, ?string $imagen = null)
 	{
@@ -20,12 +20,28 @@ class Auto
 		$this->setAnio($anio);
 		$this->setPrecio($precio);
 		$this->imagen = $imagen;
-		self::$contadorInstancias++;
 	}
 
-	public static function getContadorInstancias(): int
+	public static function getMarcasPremium(): array
 	{
-		return self::$contadorInstancias;
+		return self::$marcasPremium;
+	}
+
+	public static function esMarcaPremium(string $marca): bool
+	{
+		return in_array(trim($marca), self::$marcasPremium, true);
+	}
+
+	public static function contarAutosPremium(array $autos): int
+	{
+		$contador = 0;
+		foreach ($autos as $auto) {
+			if ($auto instanceof self && self::esMarcaPremium($auto->getMarca())) {
+				$contador++;
+			}
+		}
+
+		return $contador;
 	}
 
 	public static function esAnioValido(int $anio): bool
