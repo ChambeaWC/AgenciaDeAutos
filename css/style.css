@@ -130,6 +130,26 @@ body {
 	gap: 8px;
 }
 
+.filtros-grid {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	align-items: end;
+	margin-bottom: 14px;
+	padding: 12px;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	background: #f8fbff;
+}
+
+.filtros-grid label {
+	font-size: 0.9rem;
+}
+
+.filtros-actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
 label {
 	font-weight: 600;
 	color: #274463;
@@ -296,6 +316,19 @@ th {
 }
 
 @media (max-width: 680px) {
+	.filtros-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.filtros-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.filtros-actions .btn {
+		width: 100%;
+	}
+
 	.cards-grid {
 		grid-template-columns: 1fr;
 	}

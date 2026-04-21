@@ -103,7 +103,30 @@ try {
 	redirect('admin/usuarios.php');
 }
 
-$stmt = $db->query('SELECT id, nombre, email, rol, creado_en FROM usuarios ORDER BY id DESC');
+$filtroBuscar = trim((string) ($_GET['buscar'] ?? ''));
+$filtroRol = trim((string) ($_GET['rol_filtro'] ?? ''));
+
+$where = [];
+$params = [];
+
+if ($filtroBuscar !== '') {
+	$where[] = '(nombre LIKE :buscar OR email LIKE :buscar)';
+	$params['buscar'] = '%' . $filtroBuscar . '%';
+}
+
+if (in_array($filtroRol, ['empleado', 'administrador'], true)) {
+	$where[] = 'rol = :rol_filtro';
+	$params['rol_filtro'] = $filtroRol;
+}
+
+$sql = 'SELECT id, nombre, email, rol, creado_en FROM usuarios';
+if (count($where) > 0) {
+	$sql .= ' WHERE ' . implode(' AND ', $where);
+}
+$sql .= ' ORDER BY id DESC';
+
+$stmt = $db->prepare($sql);
+$stmt->execute($params);
 $usuarios = $stmt->fetchAll();
 
 require_once __DIR__ . '/../components/header.php';
@@ -143,6 +166,24 @@ require_once __DIR__ . '/../components/header.php';
 
 <section class="panel">
 	<h2>Listado de usuarios</h2>
+	<form method="get" class="form-grid filtros-grid">
+		<label for="buscar_usuario">Buscar por nombre o email</label>
+		<input id="buscar_usuario" name="buscar" type="text"
+			value="<?= htmlspecialchars($filtroBuscar) ?>"
+			placeholder="Ej: Juan o correo@dominio.com">
+
+		<label for="rol_filtro">Rol</label>
+		<select id="rol_filtro" name="rol_filtro">
+			<option value="">Todos</option>
+			<option value="empleado" <?= $filtroRol === 'empleado' ? 'selected' : '' ?>>Empleado</option>
+			<option value="administrador" <?= $filtroRol === 'administrador' ? 'selected' : '' ?>>Administrador</option>
+		</select>
+
+		<div class="filtros-actions">
+			<button type="submit" class="btn btn-small">Filtrar</button>
+			<a href="<?= htmlspecialchars(app_url('admin/usuarios.php')) ?>" class="btn btn-secondary btn-small">Limpiar</a>
+		</div>
+	</form>
 	<div class="table-wrap">
 		<table>
 			<thead>

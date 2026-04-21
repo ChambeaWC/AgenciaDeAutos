@@ -58,8 +58,8 @@ require_once __DIR__ . '/../components/header.php';
 						<span><?= htmlspecialchars($auto->getModelo()) ?></span>
 					</h3>
 					<ul class="auto-card-detalles">
-						<li><span>Año</span><strong><?= $auto->getAnio() ?></strong></li>
-						<li><span>Precio</span><strong class="auto-precio"><?= htmlspecialchars(Auto::formatearPrecio($auto->getPrecio())) ?></strong></li>
+						<li><span>Año </span><strong><?= $auto->getAnio() ?></strong></li>
+						<li><span>Precio </span><strong class="auto-precio"><?= htmlspecialchars(Auto::formatearPrecio($auto->getPrecio())) ?></strong></li>
 					</ul>
 				</div>
 			</article>
