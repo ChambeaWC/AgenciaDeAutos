@@ -167,17 +167,21 @@ require_once __DIR__ . '/../components/header.php';
 <section class="panel">
 	<h2>Listado de usuarios</h2>
 	<form method="get" class="form-grid filtros-grid">
-		<label for="buscar_usuario">Buscar por nombre o email</label>
-		<input id="buscar_usuario" name="buscar" type="text"
-			value="<?= htmlspecialchars($filtroBuscar) ?>"
-			placeholder="Ej: Juan o correo@dominio.com">
+		<div class="filtro-campo">
+			<label for="buscar_usuario">Buscar por nombre o email</label>
+			<input id="buscar_usuario" name="buscar" type="text"
+				value="<?= htmlspecialchars($filtroBuscar) ?>"
+				placeholder="Ej: Juan o correo@dominio.com">
+		</div>
 
-		<label for="rol_filtro">Rol</label>
-		<select id="rol_filtro" name="rol_filtro">
-			<option value="">Todos</option>
-			<option value="empleado" <?= $filtroRol === 'empleado' ? 'selected' : '' ?>>Empleado</option>
-			<option value="administrador" <?= $filtroRol === 'administrador' ? 'selected' : '' ?>>Administrador</option>
-		</select>
+		<div class="filtro-campo">
+			<label for="rol_filtro">Rol</label>
+			<select id="rol_filtro" name="rol_filtro">
+				<option value="">Todos</option>
+				<option value="empleado" <?= $filtroRol === 'empleado' ? 'selected' : '' ?>>Empleado</option>
+				<option value="administrador" <?= $filtroRol === 'administrador' ? 'selected' : '' ?>>Administrador</option>
+			</select>
+		</div>
 
 		<div class="filtros-actions">
 			<button type="submit" class="btn btn-small">Filtrar</button>

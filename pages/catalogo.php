@@ -50,20 +50,26 @@ require_once __DIR__ . '/../components/header.php';
 
 <section class="panel catalogo-filtros-panel">
 	<form method="get" class="form-grid filtros-grid catalogo-filtros-grid">
-		<label for="buscar">Buscar</label>
-		<input id="buscar" name="buscar" type="text"
-			value="<?= htmlspecialchars($filtroBuscar) ?>"
-			placeholder="Marca o modelo">
+		<div class="filtro-campo">
+			<label for="buscar">Buscar</label>
+			<input id="buscar" name="buscar" type="text"
+				value="<?= htmlspecialchars($filtroBuscar) ?>"
+				placeholder="Marca o modelo">
+		</div>
 
-		<label for="anio">Año</label>
-		<input id="anio" name="anio" type="number" min="1900" max="2100"
-			value="<?= htmlspecialchars($filtroAnio) ?>"
-			placeholder="Ej: 2023">
+		<div class="filtro-campo">
+			<label for="anio">Año</label>
+			<input id="anio" name="anio" type="number" min="1900" max="2100"
+				value="<?= htmlspecialchars($filtroAnio) ?>"
+				placeholder="Ej: 2023">
+		</div>
 
-		<label for="precio_max">Precio máximo</label>
-		<input id="precio_max" name="precio_max" type="number" min="0" step="0.01"
-			value="<?= htmlspecialchars($filtroPrecioMax) ?>"
-			placeholder="Ej: 35000">
+		<div class="filtro-campo">
+			<label for="precio_max">Precio máximo</label>
+			<input id="precio_max" name="precio_max" type="number" min="0" step="0.01"
+				value="<?= htmlspecialchars($filtroPrecioMax) ?>"
+				placeholder="Ej: 35000">
+		</div>
 
 		<div class="filtros-actions">
 			<button type="submit" class="btn btn-small">Aplicar filtros</button>

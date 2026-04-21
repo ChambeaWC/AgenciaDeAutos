@@ -284,25 +284,33 @@ require_once __DIR__ . '/../components/header.php';
 <section class="panel">
 	<h2>Listado de vehículos</h2>
 	<form method="get" class="form-grid filtros-grid">
-		<label for="buscar">Buscar por marca o modelo</label>
-		<input id="buscar" name="buscar" type="text"
-			value="<?= htmlspecialchars($filtroBuscar) ?>"
-			placeholder="Ej: Toyota, Corolla">
+		<div class="filtro-campo">
+			<label for="buscar">Buscar por marca o modelo</label>
+			<input id="buscar" name="buscar" type="text"
+				value="<?= htmlspecialchars($filtroBuscar) ?>"
+				placeholder="Ej: Toyota, Corolla">
+		</div>
 
-		<label for="anio_filtro">Año</label>
-		<input id="anio_filtro" name="anio" type="number" min="1900" max="2100"
-			value="<?= htmlspecialchars($filtroAnio) ?>"
-			placeholder="Ej: 2022">
+		<div class="filtro-campo">
+			<label for="anio_filtro">Año</label>
+			<input id="anio_filtro" name="anio" type="number" min="1900" max="2100"
+				value="<?= htmlspecialchars($filtroAnio) ?>"
+				placeholder="Ej: 2022">
+		</div>
 
-		<label for="precio_min">Precio mínimo</label>
-		<input id="precio_min" name="precio_min" type="number" min="0" step="0.01"
-			value="<?= htmlspecialchars($filtroPrecioMin) ?>"
-			placeholder="Ej: 10000">
+		<div class="filtro-campo">
+			<label for="precio_min">Precio mínimo</label>
+			<input id="precio_min" name="precio_min" type="number" min="0" step="0.01"
+				value="<?= htmlspecialchars($filtroPrecioMin) ?>"
+				placeholder="Ej: 10000">
+		</div>
 
-		<label for="precio_max">Precio máximo</label>
-		<input id="precio_max" name="precio_max" type="number" min="0" step="0.01"
-			value="<?= htmlspecialchars($filtroPrecioMax) ?>"
-			placeholder="Ej: 40000">
+		<div class="filtro-campo">
+			<label for="precio_max">Precio máximo</label>
+			<input id="precio_max" name="precio_max" type="number" min="0" step="0.01"
+				value="<?= htmlspecialchars($filtroPrecioMax) ?>"
+				placeholder="Ej: 40000">
+		</div>
 
 		<div class="filtros-actions">
 			<button type="submit" class="btn btn-small">Filtrar</button>
