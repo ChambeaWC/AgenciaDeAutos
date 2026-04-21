@@ -350,19 +350,28 @@ require_once __DIR__ . '/../components/header.php';
 								<span class="sin-imagen">—</span>
 							<?php endif; ?>
 						</td>
-						<td><?= htmlspecialchars($auto->getMarca()) ?></td>
+						<td>
+							<div class="tabla-marca-wrap">
+								<span><?= htmlspecialchars($auto->getMarca()) ?></span>
+								<?php if (Auto::esMarcaPremium($auto->getMarca())): ?>
+									<span class="premium-badge premium-badge--small">Premium</span>
+								<?php endif; ?>
+							</div>
+						</td>
 						<td><?= htmlspecialchars($auto->getModelo()) ?></td>
 						<td><?= $auto->getAnio() ?></td>
 						<td><?= htmlspecialchars(Auto::formatearPrecio($auto->getPrecio())) ?></td>
-						<td class="actions">
-							<a href="<?= htmlspecialchars(app_url('pages/vehiculos.php?edit=' . $auto->getId())) ?>"
-							   class="btn btn-small">Editar</a>
-							<form method="post"
-							      onsubmit="return confirm('¿Seguro que deseás eliminar este vehículo?');">
-								<input type="hidden" name="accion" value="eliminar">
-								<input type="hidden" name="id"     value="<?= $auto->getId() ?>">
-								<button type="submit" class="btn btn-small btn-danger">Eliminar</button>
-							</form>
+						<td>
+							<div class="actions">
+								<a href="<?= htmlspecialchars(app_url('pages/vehiculos.php?edit=' . $auto->getId())) ?>"
+								   class="btn btn-small">Editar</a>
+								<form method="post"
+								      onsubmit="return confirm('¿Seguro que deseás eliminar este vehículo?');">
+									<input type="hidden" name="accion" value="eliminar">
+									<input type="hidden" name="id"     value="<?= $auto->getId() ?>">
+									<button type="submit" class="btn btn-small btn-danger">Eliminar</button>
+								</form>
+							</div>
 						</td>
 					</tr>
 				<?php endforeach; ?>

@@ -7,7 +7,7 @@ Auth::requireLogin();
 $usuario = Auth::user();
 
 $stmtAutos = db()->query('SELECT id, marca, modelo, anio, precio FROM vehiculos ORDER BY id DESC');
-$autos = []; // Array indexado de objetos Auto
+$autos = [];
 while ($row = $stmtAutos->fetch()) {
 	$autos[] = Auto::fromRow($row);
 }
@@ -20,7 +20,7 @@ foreach ($autos as $auto) {
 	$valorTotal += $auto->getPrecio();
 }
 
-$resumen = [ // Array asociativo con metricas
+$resumen = [
 	'cantidad_autos' => count($autos),
 	'cantidad_usuarios' => $totalUsuarios,
 	'valor_total' => $valorTotal,

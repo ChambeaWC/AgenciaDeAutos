@@ -6,16 +6,6 @@ Auth::requireAdmin();
 
 $db = db();
 
-if (isset($_GET['eliminar'])) {
-    $id = (int) $_GET['eliminar'];
-
-    $stmt = $db->prepare("DELETE FROM usuarios WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-
-    set_flash('success', 'Usuario eliminado correctamente.');
-    redirect('admin/usuarios.php');
-}
-
 $usuarioEditar = null;
 
 if (isset($_GET['editar'])) {
@@ -29,6 +19,20 @@ if (isset($_GET['editar'])) {
 
 try {
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$accion = (string) ($_POST['accion'] ?? 'guardar');
+
+		if ($accion === 'eliminar') {
+			$id = (int) ($_POST['id'] ?? 0);
+			if ($id <= 0) {
+				throw new InvalidArgumentException('ID invalido para eliminar usuario.');
+			}
+
+			$stmt = $db->prepare('DELETE FROM usuarios WHERE id = :id');
+			$stmt->execute(['id' => $id]);
+
+			set_flash('success', 'Usuario eliminado correctamente.');
+			redirect('admin/usuarios.php');
+		}
 
         $id = $_POST['id'] ?? null;
 		$isEdicion = !empty($id);
@@ -136,6 +140,7 @@ require_once __DIR__ . '/../components/header.php';
 	<h2><?= $usuarioEditar ? 'Editar usuario' : 'Alta de usuario' ?></h2>
 
 	<form method="post" class="form-grid">
+		<input type="hidden" name="accion" value="guardar">
 
         <input type="hidden" name="id" value="<?= $usuarioEditar['id'] ?? '' ?>">
 
@@ -218,11 +223,11 @@ require_once __DIR__ . '/../components/header.php';
 								<a href="usuarios.php?editar=<?= $item['id'] ?>" class="btn btn-small">
 									Editar
 								</a>
-
-								<a href="usuarios.php?eliminar=<?= $item['id'] ?>" 
-								class="btn btn-danger btn-small">
-									Eliminar
-								</a>
+								<form method="post" onsubmit="return confirm('¿Seguro que deseás eliminar este usuario?');">
+									<input type="hidden" name="accion" value="eliminar">
+									<input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
+									<button type="submit" class="btn btn-danger btn-small">Eliminar</button>
+								</form>
 							</div>
 						</td>
 					</tr>

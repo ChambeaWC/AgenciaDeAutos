@@ -80,7 +80,7 @@ require_once __DIR__ . '/../components/header.php';
 
 <?php if (count($autos) === 0): ?>
 	<section class="panel">
-		<p style="color:var(--soft);text-align:center;padding:24px 0;">
+		<p class="mensaje-vacio">
 			No hay vehículos disponibles por el momento.
 		</p>
 	</section>
@@ -120,6 +120,9 @@ require_once __DIR__ . '/../components/header.php';
 						<li><span>Año </span><strong><?= $auto->getAnio() ?></strong></li>
 						<li><span>Precio </span><strong class="auto-precio"><?= htmlspecialchars(Auto::formatearPrecio($auto->getPrecio())) ?></strong></li>
 					</ul>
+					<?php if (Auto::esMarcaPremium($auto->getMarca())): ?>
+						<span class="premium-badge">Premium</span>
+					<?php endif; ?>
 				</div>
 			</article>
 		<?php endforeach; ?>
